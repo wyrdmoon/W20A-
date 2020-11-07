@@ -6,8 +6,12 @@ def MakePost(username):
     blog_post =("Make a blog post: ")
     conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, host=dbcreds.host, port=dbcreds.port, database=dbcreds.database)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO blog_post (username, content, id) VALUES(?, ?, NULL)", [username, blog_post])
+    content = input("make a post")
+    cursor.execute("INSERT INTO blog_post (username, content, id) VALUES(?, ?, NULL)", [username, content])
     conn.commit()
+    if(cursor.rowcount == 1):
+        print("enter post")
+   
     cursor.close()
     conn.close()
     
